@@ -12,6 +12,7 @@ app.get('/', async (req, res) => {
 });
 
 async function getData() {
+    console.log('begin');
     const stopwatch = new Stopwatch(true);
     let data = [];
     try {
@@ -23,9 +24,11 @@ async function getData() {
             .goto('https://www.livescore.com')
             .wait('div.content')
             .evaluate(() => {
+                console.log('eval');
                 let elements = [];
                 let raw = document.getElementsByClassName('match-row');
                 let length = 5; //raw.length;
+                console.log('for loop');
                 for (let i = 0; i < length; i++) {
                     try {
                         elements.push(
@@ -39,6 +42,7 @@ async function getData() {
                     }
                     catch (e) { }
                 }
+                console.log('end loop');
                 return elements;
             })
             .end()
