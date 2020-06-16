@@ -12,7 +12,6 @@ app.get('/', async (req, res) => {
 });
 
 async function getData() {
-    console.log('begin');
     const stopwatch = new Stopwatch(true);
     let data = [];
     try {
@@ -20,15 +19,12 @@ async function getData() {
             executionTimeout: 60000,
             waitTimeout: 60000
         });
-        data = await nightmare
-            .goto('https://www.livescore.com')
-            .wait('div.content')
-            .evaluate(() => {
-                console.log('eval');
+        let night = nightmare.goto('https://www.livescore.com').wait('div.content');
+
+         data = night.evaluate(() => {
                 let elements = [];
                 let raw = document.getElementsByClassName('match-row');
-                let length = 5; //raw.length;
-                console.log('for loop');
+                let length = raw.length;
                 for (let i = 0; i < length; i++) {
                     try {
                         elements.push(
@@ -42,7 +38,7 @@ async function getData() {
                     }
                     catch (e) { }
                 }
-                console.log('end loop');
+
                 return elements;
             })
             .end()
@@ -56,7 +52,7 @@ async function getData() {
     return data;
 }
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log('Server up on port: ' + port);
 })
