@@ -43,7 +43,7 @@ async function getData() {
     return data;
 }
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     const results = await getData();
     res.status(200).json({ results, size: results.length });
   }
