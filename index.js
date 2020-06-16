@@ -1,6 +1,15 @@
-console.log('TEST API')const Stopwatch = require('statman-stopwatch');
+const Stopwatch = require('statman-stopwatch');
 const Nightmare = require('nightmare');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/', async (req, res) => {
+    const results = await getData();
+    res.json({ results, size: results.length });
+});
 
 async function getData() {
     const stopwatch = new Stopwatch(true);
@@ -43,7 +52,9 @@ async function getData() {
     return data;
 }
 
-module.exports = async (req, res) => {
-    const results = await getData();
-    res.status(200).json({ results, size: results.length });
-  }
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log('Server up on port: ' + port);
+})
+
+
