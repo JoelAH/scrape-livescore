@@ -23,7 +23,7 @@ async function getData() {
         let night = nightmare.goto('https://www.livescore.com').wait('div.content');
 
         console.log('done wait');
-         data = night.evaluate(() => {
+         data = await night.evaluate(() => {
                 console.log('eval');
                 let elements = [];
                 let raw = document.getElementsByClassName('match-row');
@@ -56,7 +56,7 @@ async function getData() {
     return data;
 }
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log('Server up on port: ' + port);
 })
