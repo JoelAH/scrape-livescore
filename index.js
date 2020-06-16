@@ -25,7 +25,7 @@ async function getData() {
             .evaluate(() => {
                 let elements = [];
                 let raw = document.getElementsByClassName('match-row');
-                let length = raw.length;
+                let length = 5; //raw.length;
                 for (let i = 0; i < length; i++) {
                     try {
                         elements.push(
