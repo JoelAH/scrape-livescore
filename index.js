@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', async (req, res) => {
-    const results = []; //await getData();
+    const results = await getData();
     res.json({ results, size: results.length });
 });
 
